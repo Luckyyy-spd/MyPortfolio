@@ -214,35 +214,38 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #1877f2;
+            background: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 9999;
             transition: opacity 0.5s ease-out;
+            overflow: hidden;
         }
 
         .loading-animation {
             position: relative;
             text-align: center;
+            animation: fadeIn 1s ease forwards;
         }
 
-        .welcome-text {
-            color: white;
-            font-size: 2rem;
+        .greeting {
+            color: #000;
+            font-size: 2.5rem;
             font-weight: bold;
             opacity: 0;
             transform: translateY(20px);
-            animation: welcomeIn 2s ease forwards;
+            animation: welcomeIn 1s ease forwards;
+            position: absolute;
         }
 
         .portfolio-text {
-            color: white;
+            color: #000;
             font-size: 1.5rem;
             margin-top: 1rem;
             opacity: 0;
             transform: translateY(20px);
-            animation: welcomeIn 2s ease 0.5s forwards;
+            animation: welcomeIn 1s ease 0.5s forwards;
         }
 
         @keyframes welcomeIn {
@@ -256,17 +259,39 @@
             }
         }
 
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
         .hide-loading {
             opacity: 0;
             pointer-events: none;
+            transition: opacity 0.5s ease-out;
         }
     </style>
 </head>
 <body>
     <div class="loading-screen" id="loadingScreen">
         <div class="loading-animation">
-            <div class="welcome-text">Hello! I am Lance Samaniego</div>
-            <div class="portfolio-text">and welcome to my portfolio.</div>
+            <div class="greeting" id="greeting1">Hello!</div>
+            <div class="greeting" id="greeting2" style="display: none;">Hi!</div>
+            <div class="greeting" id="greeting3" style="display: none;">Bonjour!</div>
+            <div class="greeting" id="greeting4" style="display: none;">Hola!</div>
+            <div class="greeting" id="greeting5" style="display: none;">Ciao!</div>
         </div>
     </div>
 
@@ -419,8 +444,39 @@
             }
         }
 
-        // Call this when the page loads
-        window.addEventListener('load', checkFirstVisit);
+        function showGreetings() {
+            const greetings = [
+                document.getElementById('greeting1'),
+                document.getElementById('greeting2'),
+                document.getElementById('greeting3'),
+                document.getElementById('greeting4'),
+                document.getElementById('greeting5')
+            ];
+
+            let index = 0;
+
+            function displayNextGreeting() {
+                greetings[index].style.display = 'block';
+                greetings[index].style.animation = 'welcomeIn 1s ease forwards';
+
+                setTimeout(() => {
+                    greetings[index].style.animation = 'fadeOut 1s ease forwards';
+                    setTimeout(() => {
+                        greetings[index].style.display = 'none';
+                        index = (index + 1) % greetings.length;
+                        displayNextGreeting();
+                    }, 1000); // Wait for fade out to complete
+                }, 2000); // Display each greeting for 2 seconds
+            }
+
+            displayNextGreeting();
+        }
+
+        // Call this function when the page loads
+        window.addEventListener('load', () => {
+            checkFirstVisit();
+            showGreetings(); // Start showing greetings
+        });
     </script>
 </body>
 </html>
