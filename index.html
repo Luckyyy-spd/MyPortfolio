@@ -1,1 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lance Amiel Samaniego - Interactive Resume</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1877f2, #00b4d8);
+            color: white;
+            text-align: center;
+        }
 
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s;
+        }
+
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.3;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .section-nav {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: #1877f2;
+            transform: scale(1.3);
+        }
+
+        .nav-dot:hover {
+            background: #1877f2;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            animation: fadeInUp 1s ease 0.4s;
+        }
+
+        .cta-btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .primary-cta {
+            background: white;
+            color: #1877f2;
+        }
+
+        .secondary-cta {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            animation: fadeInUp 1s ease 0.6s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        .stat-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            animation: fadeInUp 1s ease 0.8s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        .hero-tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .education-info {
+            margin-top: 2rem;
+            animation: fadeInUp 1s ease 1s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1877f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .loading-animation {
+            position: relative;
+            text-align: center;
+        }
+
+        .welcome-text {
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: welcomeIn 2s ease forwards;
+        }
+
+        .portfolio-text {
+            color: white;
+            font-size: 1.5rem;
+            margin-top: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: welcomeIn 2s ease 0.5s forwards;
+        }
+
+        @keyframes welcomeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hide-loading {
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-animation">
+            <div class="welcome-text">Hello there everyone!</div>
+            <div class="portfolio-text">Welcome to my portfolio!</div>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="logo-container">
+            <a href="index.html" class="logo">My Portfolio</a>
+            <div id="logo-canvas-container"></div>
+        </div>
+        <div class="nav-links">
+            <a href="about.html"><i class="fas fa-user"></i> <span>About</span></a>
+            <a href="portfolio.html"><i class="fas fa-briefcase"></i> <span>Portfolio</span></a>
+            <a href="skills.html"><i class="fas fa-code"></i> <span>Skills</span></a>
+            <a href="contact.html"><i class="fas fa-envelope"></i> <span>Contact</span></a>
+        </div>
+    </nav>
+
+    <div class="hero-section">
+        <canvas id="hero-canvas"></canvas>
+        <div class="hero-content">
+            <h1 class="hero-title">Lance Amiel Samaniego</h1>
+            <p class="hero-subtitle">Web Developer</p>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">3+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">17</div>
+                    <div class="stat-label">Projects Completed</div>
+                </div>
+            </div>
+
+            <div class="hero-tags">
+                <span class="hero-tag">Python</span>
+                <span class="hero-tag">Java</span>
+                <span class="hero-tag">HTML5/CSS</span>
+                <span class="hero-tag">Bootstrap</span>
+                <span class="hero-tag">Node.js</span>
+                <span class="hero-tag">JavaScript</span>
+                <span class="hero-tag">PHP</span>
+                <span class="hero-tag">React.js</span>
+                <span class="hero-tag">Graphic Design</span>
+                <span class="hero-tag">Video Editing</span>
+            </div>
+
+            <div class="education-info">
+                <i class="fas fa-graduation-cap"></i> 2nd Year BSIT Student
+            </div>
+
+            <div class="cta-buttons">
+                <button class="cta-btn primary-cta" onclick="window.location.href='portfolio.html'">
+                    <i class="fas fa-eye"></i> View Portfolio
+                </button>
+                <button class="cta-btn secondary-cta" onclick="window.location.href='contact.html'">
+                    <i class="fas fa-paper-plane"></i> Get in Touch
+                </button>
+            </div>
+        </div>
+        <div class="scroll-indicator" onclick="smoothScrollAndNavigate()">
+            <i class="fas fa-chevron-down fa-2x"></i>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced Three.js background
+        function setupHeroBackground() {
+            const canvas = document.getElementById('hero-canvas');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            // Create particles
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 1000;
+            const posArray = new Float32Array(particlesCount * 3);
+
+            for(let i = 0; i < particlesCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 10;
+            }
+
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.005,
+                color: '#ffffff',
+                transparent: true
+            });
+
+            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particlesMesh);
+
+            camera.position.z = 3;
+
+            // Mouse movement effect
+            let mouseX = 0;
+            let mouseY = 0;
+
+            document.addEventListener('mousemove', (event) => {
+                mouseX = event.clientX / window.innerWidth - 0.5;
+                mouseY = event.clientY / window.innerHeight - 0.5;
+            });
+
+            function animate() {
+                requestAnimationFrame(animate);
+                particlesMesh.rotation.y += 0.001;
+                particlesMesh.rotation.x += mouseY * 0.0005;
+                particlesMesh.rotation.y += mouseX * 0.0005;
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            // Handle resize
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+
+        // Add this new function for smooth scrolling and navigation
+        function smoothScrollAndNavigate() {
+            // First scroll smoothly to bottom
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+            
+            // Then navigate to about.html after a short delay
+            setTimeout(() => {
+                window.location.href = 'about.html';
+            }, 500); // Wait 500ms for the scroll animation
+        }
+
+        // Initialize 3D background
+        setupHeroBackground();
+
+        // Add this to your existing scripts
+        function checkFirstVisit() {
+            if (!localStorage.getItem('hasVisited')) {
+                document.getElementById('loadingScreen').style.display = 'flex';
+                localStorage.setItem('hasVisited', 'true');
+                
+                setTimeout(() => {
+                    document.querySelector('.loading-screen').classList.add('hide-loading');
+                }, 3000); // Increased to 3 seconds to show full animation
+            } else {
+                document.getElementById('loadingScreen').style.display = 'none';
+            }
+        }
+
+        // Call this when the page loads
+        window.addEventListener('load', checkFirstVisit);
+    </script>
+</body>
+</html>

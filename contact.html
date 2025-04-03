@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        .contact-info {
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-heading {
+            font-size: 1.5rem;
+            color: #1c1e21;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-details {
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(24, 119, 242, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+            background: rgba(24, 119, 242, 0.15);
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1877f2;
+            color: white;
+            border-radius: 50%;
+            font-size: 1.2rem;
+        }
+
+        .contact-text {
+            color: #1c1e21;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1877f2;
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px) rotate(360deg);
+            box-shadow: 0 8px 16px rgba(24, 119, 242, 0.3);
+        }
+
+        .contact-form {
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #1c1e21;
+            font-weight: 500;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid rgba(24, 119, 242, 0.1);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #1877f2;
+            box-shadow: 0 0 0 3px rgba(24, 119, 242, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #1664d9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .contact-info,
+        .contact-form {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo-container">
+            <a href="index.html" class="logo">My Portfolio</a>
+        </div>
+        <div class="nav-links">
+            <a href="./about.html"><i class="fas fa-user"></i> About</a>
+            <a href="./portfolio.html"><i class="fas fa-briefcase"></i> Portfolio</a>
+            <a href="./skills.html"><i class="fas fa-code"></i> Skills</a>
+            <a href="./contact.html" class="active"><i class="fas fa-envelope"></i> Contact</a>
+        </div>
+    </nav>
+
+    <div class="content">
+        <h1 class="section-title">Get in Touch</h1>
+        
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2 class="contact-heading">Contact Information</h2>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Email</h3>
+                            <p>amiel.samaniego14@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Phone</h3>
+                            <p>+63 939 569 6848</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Location</h3>
+                            <p>San Rafael,Bulacan, Philippines</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="contact-heading">Connect with Me</h2>
+                <div class="social-links">
+                    <a href="https://github.com/Luckyyy-spd" class="social-link" title="GitHub" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://t.me/luxckyyy" class="social-link" title="Telegram" target="_blank">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                    <a href="viber://chat?number=+639395696848" class="social-link" title="Viber">
+                        <i class="fab fa-viber"></i>
+                    </a>
+                    <a href="https://www.instagram.com/xlanceyyy/" class="social-link" title="Instagram" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://web.facebook.com/lanceskyyy" class="social-link" title="Facebook" target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <h2 class="contact-heading">Send Me a Message</h2>
+                <form id="contact-form" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" id="name" name="name" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" name="email" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject" class="form-label">Subject</label>
+                        <input type="text" id="subject" name="subject" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea id="message" name="message" class="form-textarea" required></textarea>
+                    </div>
+                    <div class="contact-buttons">
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

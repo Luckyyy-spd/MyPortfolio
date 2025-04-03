@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .portfolio-item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .portfolio-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.7));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-image::before {
+            opacity: 1;
+        }
+
+        .portfolio-content {
+            padding: 1.5rem;
+        }
+
+        .portfolio-title {
+            font-size: 1.5rem;
+            color: #1c1e21;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-category {
+            color: #1877f2;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .portfolio-description {
+            color: #65676b;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .portfolio-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .portfolio-link {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .live-link {
+            background: #1877f2;
+            color: white;
+        }
+
+        .github-link {
+            background: rgba(24, 119, 242, 0.1);
+            color: #1877f2;
+        }
+
+        .portfolio-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 4rem 0 2rem;
+            color: #1c1e21;
+            font-size: 2.5rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #1877f2, #00b4d8);
+            border-radius: 3px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: 20px;
+            background: rgba(24, 119, 242, 0.1);
+            color: #1877f2;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            background: #1877f2;
+            color: white;
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .portfolio-item {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo-container">
+            <a href="index.html" class="logo">My Portfolio</a>
+        </div>
+        <div class="nav-links">
+            <a href="./about.html"><i class="fas fa-user"></i> <span>About</span></a>
+            <a href="./portfolio.html" class="active"><i class="fas fa-briefcase"></i> <span>Portfolio</span></a>
+            <a href="./skills.html"><i class="fas fa-code"></i> <span>Skills</span></a>
+            <a href="./contact.html"><i class="fas fa-envelope"></i> <span>Contact</span></a>
+        </div>
+    </nav>
+
+    <div class="content">
+        <h1 class="section-title">My Portfolio</h1>
+        
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All Projects</button>
+            <button class="filter-btn" data-filter="web">Web Development</button>
+            <button class="filter-btn" data-filter="azure">Azure Cloud</button>
+        </div>
+
+        <div class="portfolio-grid">
+            <div class="portfolio-item" data-category="web">
+                <div class="portfolio-image" style="background-image: url('images/quizka.png')"></div>
+                <div class="portfolio-content">
+                    <div class="portfolio-category">
+                        <i class="fas fa-globe"></i> Web Development
+                    </div>
+                    <h3 class="portfolio-title">Quiz-KA</h3>
+                    <p class="portfolio-description">An interactive quiz application for educational purposes. Features multiple choice questions, score tracking, and a clean user interface.</p>
+                    <div class="portfolio-links">
+                        <a href="https://luckyyy-spd.github.io/QuizKa/" class="portfolio-link live-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                        <a href="https://github.com/Luckyyy-spd/QuizKa" class="portfolio-link github-link" target="_blank">
+                            <i class="fab fa-github"></i> Source Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item" data-category="web">
+                <div class="portfolio-image" style="background-image: url('images/travel.png')"></div>
+                <div class="portfolio-content">
+                    <div class="portfolio-category">
+                        <i class="fas fa-globe"></i> Web Development
+                    </div>
+                    <h3 class="portfolio-title">Lucky Travel</h3>
+                    <p class="portfolio-description">A modern travel agency website showcasing Asian destinations. Features responsive design and interactive elements.</p>
+                    <div class="portfolio-links">
+                        <a href="https://luckyyy-spd.github.io/Travel-Agency-Website/" class="portfolio-link live-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                        <a href="https://github.com/Luckyyy-spd/Travel-Agency-Website" class="portfolio-link github-link" target="_blank">
+                            <i class="fab fa-github"></i> Source Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item" data-category="web">
+                <div class="portfolio-image" style="background-image: url('images/todo.png')"></div>
+                <div class="portfolio-content">
+                    <div class="portfolio-category">
+                        <i class="fas fa-globe"></i> Web Development
+                    </div>
+                    <h3 class="portfolio-title">Task Manager</h3>
+                    <p class="portfolio-description">A clean and efficient to-do list application with task filtering capabilities. Features include task status tracking, date & time management, and intuitive task organization.</p>
+                    <div class="portfolio-links">
+                        <a href="https://luckyyy-spd.github.io/To-do-List/" class="portfolio-link live-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                        <a href="https://github.com/Luckyyy-spd/To-do-List" class="portfolio-link github-link" target="_blank">
+                            <i class="fab fa-github"></i> Source Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item" data-category="azure">
+                <div class="portfolio-image" style="background-image: url('images/edusense.png')"></div>
+                <div class="portfolio-content">
+                    <div class="portfolio-category">
+                        <i class="fab fa-microsoft"></i> Azure Cloud
+                    </div>
+                    <h3 class="portfolio-title">EduSense</h3>
+                    <p class="portfolio-description">An AI-powered educational platform designed to support students with disabilities. Features include AI Vision Assistance, Speech-to-Text Conversion, and Adaptive Learning Interface.</p>
+                    <div class="portfolio-links">
+                        <a href="http://edusenseapp-web.azurewebsites.net/" class="portfolio-link live-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Portfolio filtering
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                // Filter items
+                const filter = button.dataset.filter;
+                portfolioItems.forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.style.display = 'block';
+                        setTimeout(() => item.style.opacity = '1', 0);
+                    } else {
+                        item.style.opacity = '0';
+                        setTimeout(() => item.style.display = 'none', 500);
+                    }
+                });
+            });
+        });
+
+        // Setup Three.js logo
+        function setupThreeJS(containerId) {
+            const container = document.getElementById(containerId);
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(50, 50);
+            container.appendChild(renderer.domElement);
+
+            const geometry = new THREE.TorusKnotGeometry(1, 0.3, 100, 16);
+            const material = new THREE.MeshPhongMaterial({
+                color: 0x1877f2,
+                specular: 0x1877f2,
+                shininess: 100,
+            });
+            const torusKnot = new THREE.Mesh(geometry, material);
+            scene.add(torusKnot);
+
+            const light = new THREE.DirectionalLight(0xffffff, 1);
+            light.position.set(1, 1, 1);
+            scene.add(light);
+            scene.add(new THREE.AmbientLight(0x404040));
+
+            camera.position.z = 3;
+
+            function animate() {
+                requestAnimationFrame(animate);
+                torusKnot.rotation.x += 0.01;
+                torusKnot.rotation.y += 0.01;
+                renderer.render(scene, camera);
+            }
+            animate();
+        }
+
+        // Initialize 3D logo
+        setupThreeJS('logo-canvas-container');
+    </script>
+</body>
+</html> 
