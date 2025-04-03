@@ -238,7 +238,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            animation: welcomeIn 0.6s ease forwards;
+            animation: welcomeIn 0.5s ease forwards;
         }
 
         .portfolio-text {
@@ -461,15 +461,15 @@
 
                 // Show the current greeting
                 greetings[index].style.display = 'block';
-                greetings[index].style.animation = 'welcomeIn 0.6s ease forwards'; // Updated to 0.6 seconds
+                greetings[index].style.animation = 'welcomeIn 0.5s ease forwards'; // Updated to 0.5 seconds
 
                 setTimeout(() => {
-                    greetings[index].style.animation = 'fadeOut 0.6s ease forwards'; // Updated to 0.6 seconds
+                    greetings[index].style.animation = 'fadeOut 0.5s ease forwards'; // Updated to 0.5 seconds
                     setTimeout(() => {
                         index = (index + 1) % greetings.length; // Move to the next greeting
                         displayNextGreeting(); // Call the function again to show the next greeting
-                    }, 600); // Wait for fade out to complete (0.6 seconds)
-                }, 600); // Display each greeting for 0.6 seconds
+                    }, 500); // Wait for fade out to complete (0.5 seconds)
+                }, 500); // Display each greeting for 0.5 seconds
             }
 
             displayNextGreeting(); // Start the greeting display
