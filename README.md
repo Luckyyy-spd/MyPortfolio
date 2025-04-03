@@ -2,16 +2,6 @@
 
 Welcome to my interactive resume project! This web application showcases my skills, experience, and portfolio in a visually appealing manner. The project features a dynamic loading screen that greets users in multiple languages. 🌍
 
-![Loading Screen Animation](path/to/your/loading-screen-animation.gif) <!-- Replace with the actual path to your GIF -->
-
-## 📚 Table of Contents
-- [✨ Features](#features)
-- [🔧 Installation](#installation)
-- [🚀 Usage](#usage)
-- [🛠️ Technologies Used](#technologies-used)
-- [🤝 Contributing](#contributing)
-- [📄 License](#license)
-
 ## ✨ Features
 - **Dynamic Loading Screen**: Displays greetings in multiple languages. 🎊
 - **Responsive Design**: Optimized for both desktop and mobile devices. 📱💻
