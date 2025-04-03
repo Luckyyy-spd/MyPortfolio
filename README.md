@@ -2,6 +2,8 @@
 
 Welcome to my interactive resume project! This web application showcases my skills, experience, and portfolio in a visually appealing manner. The project features a dynamic loading screen that greets users in multiple languages. 🌍
 
+![Loading Screen Animation](path/to/your/loading-screen-animation.gif) <!-- Replace with the actual path to your GIF -->
+
 ## 📚 Table of Contents
 - [✨ Features](#features)
 - [🔧 Installation](#installation)
@@ -28,6 +30,10 @@ To run this project locally, follow these steps:
    cd interactive-resume
    ```
 3. Open `index.html` in your web browser. 🌐
+
+## 🚀 Usage
+- Upon loading the page, you will see a loading screen that greets you in different languages.
+- After the loading screen, you will be directed to the main content of the resume, which includes sections for skills, projects, and contact information.
 
 ## 🛠️ Technologies Used
 - HTML
