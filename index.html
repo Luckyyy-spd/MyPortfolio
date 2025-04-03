@@ -456,20 +456,23 @@
             let index = 0;
 
             function displayNextGreeting() {
+                // Hide all greetings first
+                greetings.forEach(greeting => greeting.style.display = 'none');
+
+                // Show the current greeting
                 greetings[index].style.display = 'block';
                 greetings[index].style.animation = 'welcomeIn 1s ease forwards';
 
                 setTimeout(() => {
                     greetings[index].style.animation = 'fadeOut 1s ease forwards';
                     setTimeout(() => {
-                        greetings[index].style.display = 'none';
-                        index = (index + 1) % greetings.length;
-                        displayNextGreeting();
+                        index = (index + 1) % greetings.length; // Move to the next greeting
+                        displayNextGreeting(); // Call the function again to show the next greeting
                     }, 1000); // Wait for fade out to complete
                 }, 2000); // Display each greeting for 2 seconds
             }
 
-            displayNextGreeting();
+            displayNextGreeting(); // Start the greeting display
         }
 
         // Call this function when the page loads
