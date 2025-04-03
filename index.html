@@ -288,7 +288,6 @@
     <div class="loading-screen" id="loadingScreen">
         <div class="loading-animation">
             <div class="greeting" id="greeting1">Hello!</div>
-            <div class="greeting" id="greeting2" style="display: none;">Hi!</div>
             <div class="greeting" id="greeting3" style="display: none;">Bonjour!</div>
             <div class="greeting" id="greeting4" style="display: none;">Hola!</div>
             <div class="greeting" id="greeting5" style="display: none;">Ciao!</div>
@@ -446,11 +445,10 @@
 
         function showGreetings() {
             const greetings = [
-                document.getElementById('greeting1'),
-                document.getElementById('greeting2'),
-                document.getElementById('greeting3'),
-                document.getElementById('greeting4'),
-                document.getElementById('greeting5')
+                document.getElementById('greeting1'), // Hello
+                document.getElementById('greeting3'), // Bonjour
+                document.getElementById('greeting4'), // Hola
+                document.getElementById('greeting5')  // Ciao
             ];
 
             let index = 0;
@@ -464,12 +462,12 @@
                 greetings[index].style.animation = 'welcomeIn 1s ease forwards';
 
                 setTimeout(() => {
-                    greetings[index].style.animation = 'fadeOut 1s ease forwards';
+                    greetings[index].style.animation = 'fadeOut 0.5s ease forwards'; // Faster fade out
                     setTimeout(() => {
                         index = (index + 1) % greetings.length; // Move to the next greeting
                         displayNextGreeting(); // Call the function again to show the next greeting
-                    }, 1000); // Wait for fade out to complete
-                }, 2000); // Display each greeting for 2 seconds
+                    }, 500); // Wait for fade out to complete (faster)
+                }, 1500); // Display each greeting for 1.5 seconds (faster)
             }
 
             displayNextGreeting(); // Start the greeting display
