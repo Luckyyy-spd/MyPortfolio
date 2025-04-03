@@ -233,12 +233,12 @@
             color: #000;
             font-size: 2.5rem;
             font-weight: bold;
-            opacity: 0;
-            animation: welcomeIn 0.5s ease forwards;
+            opacity: 1;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            animation: welcomeIn 0.5s ease forwards;
         }
 
         .portfolio-text {
@@ -253,11 +253,11 @@
         @keyframes welcomeIn {
             0% {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translate(-50%, -50%) scale(0.8);
             }
             100% {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translate(-50%, -50%) scale(1);
             }
         }
 
@@ -469,7 +469,7 @@
                         index = (index + 1) % greetings.length; // Move to the next greeting
                         displayNextGreeting(); // Call the function again to show the next greeting
                     }, 500); // Wait for fade out to complete (faster)
-                }, 500); // Display each greeting for 0.5 seconds (faster)
+                }, 1000); // Display each greeting for 1 second (faster)
             }
 
             displayNextGreeting(); // Start the greeting display
