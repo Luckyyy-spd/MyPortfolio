@@ -6,7 +6,6 @@ Welcome to my interactive resume project! This web application showcases my skil
 - **Dynamic Loading Screen**: Displays greetings in multiple languages. 🎊
 - **Responsive Design**: Optimized for both desktop and mobile devices. 📱💻
 - **Interactive Elements**: Smooth scrolling and navigation to different sections. 🖱️
-- **3D Background Animation**: Enhanced visual experience using Three.js. 🌌
 
 ## 🔧 Installation
 To run this project locally, follow these steps:
@@ -29,7 +28,6 @@ To run this project locally, follow these steps:
 - HTML
 - CSS
 - JavaScript
-- Three.js (for 3D animations)
 - Font Awesome (for icons)
 
 ## 🤝 Contributing
