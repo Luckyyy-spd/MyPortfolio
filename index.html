@@ -228,18 +228,6 @@
             animation: fadeIn 1s ease forwards;
         }
 
-        .greeting {
-            color: #000;
-            font-size: 2.5rem;
-            font-weight: bold;
-            opacity: 1;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: welcomeIn 0.5s ease forwards;
-        }
-
         .portfolio-text {
             color: #000;
             font-size: 1.5rem;
@@ -306,7 +294,7 @@
     <div id="particles-js"></div>
     <div class="loading-screen" id="loadingScreen">
         <div class="loading-animation">
-            <div class="greeting" id="greeting1">Hello!</div>
+            <div class="greeting" id="greeting1" style="display: none;">Hello!</div>
             <div class="greeting" id="greeting3" style="display: none;">Bonjour!</div>
             <div class="greeting" id="greeting4" style="display: none;">Hola!</div>
             <div class="greeting" id="greeting5" style="display: none;">Ciao!</div>
@@ -510,43 +498,9 @@
             }
         }
 
-        // Show greetings
-        function showGreetings() {
-            const greetings = [
-                document.getElementById('greeting1'),
-                document.getElementById('greeting3'),
-                document.getElementById('greeting4'),
-                document.getElementById('greeting5')
-            ];
-
-            let index = 0;
-
-            function displayNextGreeting() {
-                // Hide all greetings first
-                greetings.forEach(greeting => greeting.style.display = 'none');
-
-                // Show the current greeting
-                greetings[index].style.display = 'block';
-                greetings[index].style.animation = 'welcomeIn 0.3s ease forwards';
-
-                // Set a timeout for the fade out
-                setTimeout(() => {
-                    greetings[index].style.animation = 'fadeOut 0.3s ease forwards';
-                    setTimeout(() => {
-                        // Move to the next greeting
-                        index = (index + 1) % greetings.length; // Loop back to the first greeting
-                        displayNextGreeting(); // Call the function again to show the next greeting
-                    }, 300); // Wait for fade out to complete (0.3 seconds)
-                }, 2000); // Display each greeting for 2 seconds
-            }
-
-            displayNextGreeting(); // Start the greeting display
-        }
-
         // Call functions on page load
         window.addEventListener('load', () => {
             checkFirstVisit();
-            showGreetings();
         });
     </script>
 </body>
