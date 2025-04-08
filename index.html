@@ -527,16 +527,16 @@
 
                 // Show the current greeting
                 greetings[index].style.display = 'block';
-                greetings[index].style.animation = 'welcomeIn 0.5s ease forwards';
+                greetings[index].style.animation = 'welcomeIn 0.3s ease forwards';
 
                 // Set a timeout for the fade out
                 setTimeout(() => {
-                    greetings[index].style.animation = 'fadeOut 0.5s ease forwards';
+                    greetings[index].style.animation = 'fadeOut 0.3s ease forwards';
                     setTimeout(() => {
                         // Move to the next greeting
                         index = (index + 1) % greetings.length; // Loop back to the first greeting
                         displayNextGreeting(); // Call the function again to show the next greeting
-                    }, 500); // Wait for fade out to complete (0.5 seconds)
+                    }, 300); // Wait for fade out to complete (0.3 seconds)
                 }, 2000); // Display each greeting for 2 seconds
             }
 
