@@ -401,7 +401,7 @@
                         }
                     },
                     opacity: {
-                        value: 0.5, // Low opacity
+                        value: 0.5,
                         random: false,
                         anim: {
                             enable: false,
@@ -522,20 +522,25 @@
             let index = 0;
 
             function displayNextGreeting() {
+                // Hide all greetings first
                 greetings.forEach(greeting => greeting.style.display = 'none');
+
+                // Show the current greeting
                 greetings[index].style.display = 'block';
                 greetings[index].style.animation = 'welcomeIn 0.5s ease forwards';
 
+                // Set a timeout for the fade out
                 setTimeout(() => {
                     greetings[index].style.animation = 'fadeOut 0.5s ease forwards';
                     setTimeout(() => {
-                        index = (index + 1) % greetings.length;
-                        displayNextGreeting();
-                    }, 500);
-                }, 500);
+                        // Move to the next greeting
+                        index = (index + 1) % greetings.length; // Loop back to the first greeting
+                        displayNextGreeting(); // Call the function again to show the next greeting
+                    }, 500); // Wait for fade out to complete (0.5 seconds)
+                }, 2000); // Display each greeting for 2 seconds
             }
 
-            displayNextGreeting();
+            displayNextGreeting(); // Start the greeting display
         }
 
         // Call functions on page load
