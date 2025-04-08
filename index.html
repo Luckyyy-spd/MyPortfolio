@@ -298,8 +298,7 @@
 
     <nav class="navbar">
         <div class="logo-container">
-            <a href="index.html" class="logo">My Portfolio</a>
-            <div id="logo-canvas-container"></div>
+            <a href="index.html" class="logo">Lance Amiel Samaniego</a>
         </div>
         <div class="nav-links">
             <a href="about.html"><i class="fas fa-user"></i> <span>About</span></a>
@@ -414,24 +413,21 @@
             });
         }
 
-        // Add this new function for smooth scrolling and navigation
+        // Smooth scrolling and navigation
         function smoothScrollAndNavigate() {
-            // First scroll smoothly to bottom
             window.scrollTo({
                 top: document.body.scrollHeight,
                 behavior: 'smooth'
             });
-            
-            // Then navigate to about.html after a short delay
             setTimeout(() => {
                 window.location.href = 'about.html';
-            }, 500); // Wait 500ms for the scroll animation
+            }, 500);
         }
 
         // Initialize 3D background
         setupHeroBackground();
 
-        // Add this to your existing scripts
+        // Check first visit
         function checkFirstVisit() {
             if (!localStorage.getItem('hasVisited')) {
                 document.getElementById('loadingScreen').style.display = 'flex';
@@ -439,46 +435,44 @@
                 
                 setTimeout(() => {
                     document.querySelector('.loading-screen').classList.add('hide-loading');
-                }, 3000); // Increased to 3 seconds to show full animation
+                }, 3000);
             } else {
                 document.getElementById('loadingScreen').style.display = 'none';
             }
         }
 
+        // Show greetings
         function showGreetings() {
             const greetings = [
-                document.getElementById('greeting1'), // Hello
-                document.getElementById('greeting3'), // Bonjour
-                document.getElementById('greeting4'), // Hola
-                document.getElementById('greeting5')  // Ciao
+                document.getElementById('greeting1'),
+                document.getElementById('greeting3'),
+                document.getElementById('greeting4'),
+                document.getElementById('greeting5')
             ];
 
             let index = 0;
 
             function displayNextGreeting() {
-                // Hide all greetings first
                 greetings.forEach(greeting => greeting.style.display = 'none');
-
-                // Show the current greeting
                 greetings[index].style.display = 'block';
-                greetings[index].style.animation = 'welcomeIn 0.5s ease forwards'; // Updated to 0.5 seconds
+                greetings[index].style.animation = 'welcomeIn 0.5s ease forwards';
 
                 setTimeout(() => {
-                    greetings[index].style.animation = 'fadeOut 0.5s ease forwards'; // Updated to 0.5 seconds
+                    greetings[index].style.animation = 'fadeOut 0.5s ease forwards';
                     setTimeout(() => {
-                        index = (index + 1) % greetings.length; // Move to the next greeting
-                        displayNextGreeting(); // Call the function again to show the next greeting
-                    }, 500); // Wait for fade out to complete (0.5 seconds)
-                }, 500); // Display each greeting for 0.5 seconds
+                        index = (index + 1) % greetings.length;
+                        displayNextGreeting();
+                    }, 500);
+                }, 500);
             }
 
-            displayNextGreeting(); // Start the greeting display
+            displayNextGreeting();
         }
 
-        // Call this function when the page loads
+        // Call functions on page load
         window.addEventListener('load', () => {
             checkFirstVisit();
-            showGreetings(); // Start showing greetings
+            showGreetings();
         });
     </script>
 </body>
