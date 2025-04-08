@@ -47,7 +47,6 @@
             width: 100%;
             height: 100%;
             z-index: 1;
-            opacity: 0.3;
         }
 
         .scroll-indicator {
@@ -284,6 +283,23 @@
             pointer-events: none;
             transition: opacity 0.5s ease-out;
         }
+
+        /* New styles for the animated background */
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
     </style>
 </head>
 <body>
@@ -357,50 +373,45 @@
     </div>
 
     <script>
-        // Enhanced Three.js background
+        // Enhanced Three.js background with better animations
         function setupHeroBackground() {
             const canvas = document.getElementById('hero-canvas');
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
 
             // Create particles
             const particlesGeometry = new THREE.BufferGeometry();
-            const particlesCount = 1000;
+            const particlesCount = 10000; // Increased particle count for more density
             const posArray = new Float32Array(particlesCount * 3);
+            const colorArray = new Float32Array(particlesCount * 3);
 
-            for(let i = 0; i < particlesCount * 3; i++) {
-                posArray[i] = (Math.random() - 0.5) * 10;
+            for (let i = 0; i < particlesCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 10; // Random positions
+                colorArray[i] = Math.random(); // Random colors
             }
 
             particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
 
             const particlesMaterial = new THREE.PointsMaterial({
-                size: 0.005,
-                color: '#ffffff',
-                transparent: true
+                size: 0.02,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.7
             });
 
             const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
             scene.add(particlesMesh);
 
-            camera.position.z = 3;
+            camera.position.z = 5;
 
-            // Mouse movement effect
-            let mouseX = 0;
-            let mouseY = 0;
-
-            document.addEventListener('mousemove', (event) => {
-                mouseX = event.clientX / window.innerWidth - 0.5;
-                mouseY = event.clientY / window.innerHeight - 0.5;
-            });
-
+            // Animation loop
             function animate() {
                 requestAnimationFrame(animate);
-                particlesMesh.rotation.y += 0.001;
-                particlesMesh.rotation.x += mouseY * 0.0005;
-                particlesMesh.rotation.y += mouseX * 0.0005;
+                particlesMesh.rotation.x += 0.001;
+                particlesMesh.rotation.y += 0.002; // Added rotation for dynamic effect
                 renderer.render(scene, camera);
             }
             animate();
@@ -424,7 +435,7 @@
             }, 500);
         }
 
-        // Initialize 3D background
+        // Call the setup function
         setupHeroBackground();
 
         // Check first visit
