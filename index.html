@@ -40,7 +40,7 @@
             animation: fadeInUp 1s ease 0.2s;
         }
 
-        #hero-canvas {
+        #particles-js {
             position: absolute;
             top: 0;
             left: 0;
@@ -300,15 +300,6 @@
             text-align: center;
             overflow: hidden;
         }
-
-        #particles-js {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
     </style>
 </head>
 <body>
@@ -335,7 +326,6 @@
     </nav>
 
     <div class="hero-section">
-        <canvas id="hero-canvas"></canvas>
         <div class="hero-content">
             <h1 class="hero-title">Lance Amiel Samaniego</h1>
             <p class="hero-subtitle">Web Developer</p>
@@ -387,7 +377,7 @@
             particlesJS("particles-js", {
                 particles: {
                     number: {
-                        value: 80,
+                        value: 30,
                         density: {
                             enable: true,
                             value_area: 800
@@ -397,7 +387,7 @@
                         value: "#ffffff"
                     },
                     shape: {
-                        type: "circle",
+                        type: "polygon",
                         stroke: {
                             width: 0,
                             color: "#000000"
@@ -412,7 +402,7 @@
                         }
                     },
                     opacity: {
-                        value: 0.2,
+                        value: 0.5, // Low opacity
                         random: false,
                         anim: {
                             enable: false,
@@ -426,7 +416,7 @@
                         random: true,
                         anim: {
                             enable: false,
-                            speed: 40,
+                            speed: 19.18,
                             size_min: 0.1,
                             sync: false
                         }
@@ -440,9 +430,9 @@
                     },
                     move: {
                         enable: true,
-                        speed: 6,
+                        speed: 4,
                         direction: "none",
-                        random: false,
+                        random: true,
                         straight: false,
                         out_mode: "out",
                         bounce: false,
@@ -457,7 +447,7 @@
                     detect_on: "canvas",
                     events: {
                         onhover: {
-                            enable: true,
+                            enable: false,
                             mode: "grab"
                         },
                         onclick: {
@@ -496,57 +486,6 @@
             });
         });
 
-        // Enhanced Three.js background with better animations
-        function setupHeroBackground() {
-            const canvas = document.getElementById('hero-canvas');
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-
-            // Create particles
-            const particlesGeometry = new THREE.BufferGeometry();
-            const particlesCount = 10000; // Increased particle count for more density
-            const posArray = new Float32Array(particlesCount * 3);
-            const colorArray = new Float32Array(particlesCount * 3);
-
-            for (let i = 0; i < particlesCount * 3; i++) {
-                posArray[i] = (Math.random() - 0.5) * 10; // Random positions
-                colorArray[i] = Math.random(); // Random colors
-            }
-
-            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-            particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
-
-            const particlesMaterial = new THREE.PointsMaterial({
-                size: 0.02,
-                vertexColors: true,
-                transparent: true,
-                opacity: 0.7
-            });
-
-            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-            scene.add(particlesMesh);
-
-            camera.position.z = 5;
-
-            // Animation loop
-            function animate() {
-                requestAnimationFrame(animate);
-                particlesMesh.rotation.x += 0.001;
-                particlesMesh.rotation.y += 0.002; // Added rotation for dynamic effect
-                renderer.render(scene, camera);
-            }
-            animate();
-
-            // Handle resize
-            window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            });
-        }
-
         // Smooth scrolling and navigation
         function smoothScrollAndNavigate() {
             window.scrollTo({
@@ -557,9 +496,6 @@
                 window.location.href = 'about.html';
             }, 500);
         }
-
-        // Call the setup function
-        setupHeroBackground();
 
         // Check first visit
         function checkFirstVisit() {
@@ -587,23 +523,20 @@
             let index = 0;
 
             function displayNextGreeting() {
-                // Hide all greetings first
                 greetings.forEach(greeting => greeting.style.display = 'none');
-
-                // Show the current greeting
                 greetings[index].style.display = 'block';
                 greetings[index].style.animation = 'welcomeIn 0.5s ease forwards';
 
                 setTimeout(() => {
                     greetings[index].style.animation = 'fadeOut 0.5s ease forwards';
                     setTimeout(() => {
-                        index = (index + 1) % greetings.length; // Move to the next greeting
-                        displayNextGreeting(); // Call the function again to show the next greeting
-                    }, 500); // Wait for fade out to complete (0.5 seconds)
-                }, 2000); // Display each greeting for 2 seconds
+                        index = (index + 1) % greetings.length;
+                        displayNextGreeting();
+                    }, 500);
+                }, 500);
             }
 
-            displayNextGreeting(); // Start the greeting display
+            displayNextGreeting();
         }
 
         // Call functions on page load
