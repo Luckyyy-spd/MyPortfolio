@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --text-color: #333;
-            --bg-color: #fff;
-            --accent-color: #007AFF;
-            --secondary-bg: #f8f9fa;
+            --text-color: #1a1a1a;
+            --bg-color: #ffffff;
+            --accent-color: #1a1a1a;
+            --secondary-bg: #f5f5f5;
             --error-color: #dc3545;
             --success-color: #28a745;
         }
@@ -35,22 +35,40 @@
             display: flex;
             gap: 2rem;
             margin-bottom: 4rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--secondary-bg);
         }
 
         .nav-links a {
             text-decoration: none;
             color: var(--text-color);
             font-weight: 500;
-            transition: color 0.3s ease;
+            transition: opacity 0.2s ease;
+            position: relative;
         }
 
         .nav-links a:hover {
+            opacity: 0.7;
+        }
+
+        .nav-links a.active {
             color: var(--accent-color);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1rem;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: var(--accent-color);
         }
 
         h1 {
             font-size: 2.5rem;
             margin-bottom: 2rem;
+            font-weight: 500;
         }
 
         .contact-grid {
@@ -73,8 +91,19 @@
         }
 
         .contact-item i {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             color: var(--accent-color);
+        }
+
+        .contact-item h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-item p {
+            font-size: 0.9rem;
+            color: #666;
         }
 
         .contact-form {
@@ -91,16 +120,18 @@
 
         .form-group label {
             font-weight: 500;
+            font-size: 0.9rem;
         }
 
         .form-group input,
         .form-group textarea {
             padding: 0.75rem;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: 0;
             font-family: inherit;
             font-size: 1rem;
-            transition: border-color 0.3s ease;
+            transition: border-color 0.2s ease;
+            background: var(--bg-color);
         }
 
         .form-group input:focus,
@@ -119,15 +150,16 @@
             color: white;
             border: none;
             padding: 1rem 2rem;
-            border-radius: 4px;
+            border-radius: 0;
             font-size: 1rem;
             font-weight: 500;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: opacity 0.2s ease;
+            width: fit-content;
         }
 
         .submit-btn:hover {
-            background: #0056b3;
+            opacity: 0.8;
         }
 
         .social-links {
@@ -138,12 +170,13 @@
 
         .social-links a {
             color: var(--text-color);
-            font-size: 1.5rem;
-            transition: color 0.3s ease;
+            font-size: 1.2rem;
+            transition: opacity 0.2s ease;
+            text-decoration: none;
         }
 
         .social-links a:hover {
-            color: var(--accent-color);
+            opacity: 0.7;
         }
 
         .success-message {
@@ -151,7 +184,6 @@
             background: var(--success-color);
             color: white;
             padding: 1rem;
-            border-radius: 4px;
             margin-bottom: 1rem;
         }
 
@@ -160,7 +192,6 @@
             background: var(--error-color);
             color: white;
             padding: 1rem;
-            border-radius: 4px;
             margin-bottom: 1rem;
         }
 
@@ -185,10 +216,10 @@
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="portfolio.html">Projects</a>
-        <a href="contact.html">Contact</a>
+        <a href="contact.html" class="active">Contact</a>
     </nav>
 
-    <h1>Get in Touch</h1>
+    <h1>Contact</h1>
 
     <div class="contact-grid">
         <div class="contact-info">
@@ -206,15 +237,8 @@
                     <p>Manila, Philippines</p>
                 </div>
             </div>
-            <div class="contact-item">
-                <i class="fas fa-clock"></i>
-                <div>
-                    <h3>Availability</h3>
-                    <p>Available for freelance work</p>
-                </div>
-            </div>
             <div class="social-links">
-                <a href="https://github.com/yourusername" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://github.com/Luckyyy-spd" target="_blank"><i class="fab fa-github"></i></a>
                 <a href="https://linkedin.com/in/yourusername" target="_blank"><i class="fab fa-linkedin"></i></a>
                 <a href="https://twitter.com/yourusername" target="_blank"><i class="fab fa-twitter"></i></a>
             </div>
@@ -236,10 +260,6 @@
                 <input type="email" id="email" name="email" required>
             </div>
             <div class="form-group">
-                <label for="subject">Subject</label>
-                <input type="text" id="subject" name="subject" required>
-            </div>
-            <div class="form-group">
                 <label for="message">Message</label>
                 <textarea id="message" name="message" required></textarea>
             </div>
@@ -250,8 +270,6 @@
     <script>
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            // Here you would typically handle the form submission
-            // For now, we'll just show the success message
             document.getElementById('successMessage').style.display = 'block';
             this.reset();
         });
