@@ -3,505 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lance Amiel Samaniego - Interactive Resume</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Lance Amiel Samaniego</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
     <style>
-        .hero-section {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(135deg, #1877f2, #00b4d8);
-            color: white;
-            text-align: center;
+        :root {
+            --text-color: #333;
+            --bg-color: #fff;
+            --accent-color: #007AFF;
+            --secondary-bg: #f8f9fa;
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--bg-color);
             max-width: 800px;
+            margin: 0 auto;
             padding: 2rem;
         }
 
-        .hero-title {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            animation: fadeInUp 0.3s ease;
+        .header {
+            margin-bottom: 4rem;
         }
 
-        .hero-subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            animation: fadeInUp 0.3s ease 0.1s;
-        }
-
-        #particles-js {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-            cursor: pointer;
-            z-index: 2;
-        }
-
-        .section-nav {
-            position: fixed;
-            right: 2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .nav-dot {
-            width: 12px;
-            height: 12px;
+        .profile-image {
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
+            margin-bottom: 2rem;
         }
 
-        .nav-dot.active {
-            background: #1877f2;
-            transform: scale(1.3);
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
         }
 
-        .nav-dot:hover {
-            background: #1877f2;
+        h2 {
+            font-size: 1.8rem;
+            margin: 3rem 0 1.5rem;
+            color: var(--accent-color);
         }
 
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 2rem;
-            animation: fadeInUp 0.3s ease 0.1s;
-        }
-
-        .cta-btn {
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        p {
+            margin-bottom: 1.5rem;
             font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
-        .primary-cta {
-            background: white;
-            color: #1877f2;
+        .quote {
+            font-style: italic;
+            color: #666;
+            margin: 2rem 0;
+            padding-left: 1rem;
+            border-left: 3px solid var(--accent-color);
         }
 
-        .secondary-cta {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            backdrop-filter: blur(10px);
-        }
-
-        .cta-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-10px);
-            }
-            60% {
-                transform: translateY(-5px);
-            }
-        }
-
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
-            animation: fadeInUp 0.3s ease 0.2s;
-            opacity: 0;
-            animation-fill-mode: forwards;
-        }
-
-        .stat-item {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        .hero-tags {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+        .technologies {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 1rem;
-            margin-top: 2rem;
-            animation: fadeInUp 0.3s ease 0.3s;
-            opacity: 0;
-            animation-fill-mode: forwards;
+            margin: 2rem 0;
         }
 
-        .hero-tag {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            backdrop-filter: blur(10px);
+        .tech-item {
+            background: var(--secondary-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
         }
 
         .education-info {
-            margin-top: 2rem;
-            animation: fadeInUp 0.3s ease 0.4s;
-            opacity: 0;
-            animation-fill-mode: forwards;
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--secondary-bg);
             padding: 1rem 2rem;
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            margin: 2rem 0;
         }
 
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease-out;
-            overflow: hidden;
-        }
-
-        .loading-animation {
-            position: relative;
-            text-align: center;
-            animation: fadeIn 1s ease forwards;
-        }
-
-        .portfolio-text {
-            color: #000;
-            font-size: 1.5rem;
-            margin-top: 1rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: welcomeIn 1s ease 0.5s forwards;
-        }
-
-        @keyframes welcomeIn {
-            0% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.8);
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
             }
-            100% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
-        }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
+            h1 {
+                font-size: 2rem;
             }
-            to {
-                opacity: 1;
+
+            .technologies {
+                grid-template-columns: 1fr;
             }
-        }
-
-        @keyframes fadeOut {
-            0% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-            }
-        }
-
-        .hide-loading {
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s ease-out;
-        }
-
-        /* New styles for the animated background */
-        body {
-            margin: 0;
-            overflow: hidden;
-        }
-
-        .hero-section {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-            overflow: hidden;
         }
     </style>
 </head>
 <body>
-    <div id="particles-js"></div>
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loading-animation">
-            <div class="greeting" id="greeting1" style="display: none;">Hello!</div>
-            <div class="greeting" id="greeting3" style="display: none;">Bonjour!</div>
-            <div class="greeting" id="greeting4" style="display: none;">Hola!</div>
-            <div class="greeting" id="greeting5" style="display: none;">Ciao!</div>
-        </div>
-    </div>
-
-    <nav class="navbar">
-        <div class="logo-container">
-            <a href="index.html" class="logo">My Portfolio</a>
-        </div>
-        <div class="nav-links">
-            <a href="about.html"><i class="fas fa-user"></i> <span>About</span></a>
-            <a href="portfolio.html"><i class="fas fa-briefcase"></i> <span>Portfolio</span></a>
-            <a href="contact.html"><i class="fas fa-envelope"></i> <span>Contact</span></a>
-        </div>
+    <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="portfolio.html">Projects</a>
+        <a href="contact.html">Contact</a>
     </nav>
 
-    <div class="hero-section">
-        <div class="hero-content">
-            <h1 class="hero-title">Lance Amiel Samaniego</h1>
-            <p class="hero-subtitle">Web Developer</p>
-            
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <div class="stat-number">3+</div>
-                    <div class="stat-label">Years Experience</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">17</div>
-                    <div class="stat-label">Projects Completed</div>
-                </div>
-            </div>
+    <header class="header">
+        <img src="images/profile_picture.png" alt="Lance" class="profile-image">
+        <h1>Hi, I'm Lance</h1>
+        <p>I'm a Full Stack Developer passionate about creating innovative solutions and building impactful applications.</p>
+        <p class="quote">"The best way to predict the future is to create it."</p>
+    </header>
 
-            <div class="hero-tags">
-                <span class="hero-tag">Python</span>
-                <span class="hero-tag">Java</span>
-                <span class="hero-tag">HTML5/CSS</span>
-                <span class="hero-tag">Bootstrap</span>
-                <span class="hero-tag">Node.js</span>
-                <span class="hero-tag">JavaScript</span>
-                <span class="hero-tag">PHP</span>
-                <span class="hero-tag">React.js</span>
-                <span class="hero-tag">Graphic Design</span>
-                <span class="hero-tag">Video Editing</span>
-            </div>
-
-            <div class="education-info">
-                <i class="fas fa-graduation-cap"></i> 2nd Year BSIT Student
-            </div>
-
-            <div class="cta-buttons">
-                <button class="cta-btn primary-cta" onclick="window.location.href='portfolio.html'">
-                    <i class="fas fa-eye"></i> View Portfolio
-                </button>
-                <button class="cta-btn secondary-cta" onclick="window.location.href='contact.html'">
-                    <i class="fas fa-paper-plane"></i> Get in Touch
-                </button>
-            </div>
+    <section>
+        <h2>Technologies I work with</h2>
+        <div class="technologies">
+            <div class="tech-item">HTML/CSS</div>
+            <div class="tech-item">JavaScript</div>
+            <div class="tech-item">Java</div>
+            <div class="tech-item">React</div>
+            <div class="tech-item">Node.js</div>
+            <div class="tech-item">Azure Cloud</div>
         </div>
-        <div class="scroll-indicator" onclick="smoothScrollAndNavigate()">
-            <i class="fas fa-chevron-down fa-2x"></i>
-        </div>
+    </section>
+
+    <div class="education-info">
+        <i class="fas fa-graduation-cap"></i> 3rd Year BSIT Student
     </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            particlesJS("particles-js", {
-                particles: {
-                    number: {
-                        value: 30,
-                        density: {
-                            enable: true,
-                            value_area: 800
-                        }
-                    },
-                    color: {
-                        value: "#ffffff"
-                    },
-                    shape: {
-                        type: "polygon",
-                        stroke: {
-                            width: 0,
-                            color: "#000000"
-                        },
-                        polygon: {
-                            nb_sides: 5
-                        },
-                        image: {
-                            src: "img/github.svg",
-                            width: 100,
-                            height: 100
-                        }
-                    },
-                    opacity: {
-                        value: 0.5,
-                        random: false,
-                        anim: {
-                            enable: false,
-                            speed: 1,
-                            opacity_min: 0.1,
-                            sync: false
-                        }
-                    },
-                    size: {
-                        value: 3,
-                        random: true,
-                        anim: {
-                            enable: false,
-                            speed: 19.18,
-                            size_min: 0.1,
-                            sync: false
-                        }
-                    },
-                    line_linked: {
-                        enable: true,
-                        distance: 150,
-                        color: "#ffffff",
-                        opacity: 0.4,
-                        width: 1
-                    },
-                    move: {
-                        enable: true,
-                        speed: 4,
-                        direction: "none",
-                        random: true,
-                        straight: false,
-                        out_mode: "out",
-                        bounce: false,
-                        attract: {
-                            enable: false,
-                            rotateX: 600,
-                            rotateY: 1200
-                        }
-                    }
-                },
-                interactivity: {
-                    detect_on: "canvas",
-                    events: {
-                        onhover: {
-                            enable: false,
-                            mode: "grab"
-                        },
-                        onclick: {
-                            enable: true,
-                            mode: "push"
-                        },
-                        resize: true
-                    },
-                    modes: {
-                        grab: {
-                            distance: 400,
-                            line_linked: {
-                                opacity: 1
-                            }
-                        },
-                        bubble: {
-                            distance: 400,
-                            size: 40,
-                            duration: 2,
-                            opacity: 8,
-                            speed: 3
-                        },
-                        repulse: {
-                            distance: 200,
-                            duration: 0.4
-                        },
-                        push: {
-                            particles_nb: 4
-                        },
-                        remove: {
-                            particles_nb: 2
-                        }
-                    }
-                },
-                retina_detect: true
-            });
-        });
-
-        // Smooth scrolling and navigation
-        function smoothScrollAndNavigate() {
-            window.scrollTo({
-                top: document.body.scrollHeight,
-                behavior: 'smooth'
-            });
-            setTimeout(() => {
-                window.location.href = 'about.html';
-            }, 500);
-        }
-
-        // Check first visit
-        function checkFirstVisit() {
-            if (!localStorage.getItem('hasVisited')) {
-                document.getElementById('loadingScreen').style.display = 'flex';
-                localStorage.setItem('hasVisited', 'true');
-                
-                setTimeout(() => {
-                    document.querySelector('.loading-screen').classList.add('hide-loading');
-                }, 3000);
-            } else {
-                document.getElementById('loadingScreen').style.display = 'none';
-            }
-        }
-
-        // Call functions on page load
-        window.addEventListener('load', () => {
-            checkFirstVisit();
-        });
-    </script>
 </body>
 </html>
