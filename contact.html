@@ -198,6 +198,27 @@
             margin-bottom: 1rem;
         }
 
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            aspect-ratio: 1/1;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            background: #222;
+        }
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s cubic-bezier(.39,.575,.565,1), transform 0.7s cubic-bezier(.39,.575,.565,1);
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: none;
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 1rem;
@@ -222,9 +243,9 @@
         <a href="contact.html" class="active">Contact</a>
     </nav>
 
-    <h1>Contact</h1>
+    <h1 class="fade-in-up">Contact</h1>
 
-    <div class="contact-grid">
+    <div class="contact-grid fade-in-up">
         <div class="contact-info">
             <div class="contact-item">
                 <i class="fas fa-envelope"></i>
@@ -242,8 +263,6 @@
             </div>
             <div class="social-links">
                 <a href="https://github.com/Luckyyy-spd" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://linkedin.com/in/yourusername" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="https://twitter.com/yourusername" target="_blank"><i class="fab fa-twitter"></i></a>
             </div>
         </div>
 
@@ -276,6 +295,18 @@
             document.getElementById('successMessage').style.display = 'block';
             this.reset();
         });
+
+        // Animation on scroll
+        function revealOnScroll() {
+            document.querySelectorAll('.fade-in-up').forEach(function(el) {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 40) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('DOMContentLoaded', revealOnScroll);
     </script>
 </body>
 </html> 

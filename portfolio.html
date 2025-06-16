@@ -135,6 +135,7 @@
             object-fit: cover;
             margin-bottom: 1rem;
             border: 1px solid var(--border-color);
+            background: #222;
         }
 
         .project-links {
@@ -161,6 +162,29 @@
             color: var(--text-color);
         }
 
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            aspect-ratio: 1/1;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            background: #222;
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s cubic-bezier(.39,.575,.565,1), transform 0.7s cubic-bezier(.39,.575,.565,1);
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: none;
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 1rem;
@@ -184,10 +208,10 @@
         <a href="contact.html">Contact</a>
     </nav>
 
-    <h1>Projects</h1>
+    <h1 class="fade-in-up">Projects</h1>
     
     <div class="projects">
-        <div class="project">
+        <div class="project fade-in-up">
             <img src="images/bochogs.jpg" alt="Bochogs Food Ordering System" class="project-image">
             <h3>Bochogs Food Ordering System</h3>
             <p>A modern food ordering web application for Bochogs restaurant. Features include online menu browsing, cart management, order tracking, and secure payment processing.</p>
@@ -197,7 +221,7 @@
             </div>
         </div>
 
-        <div class="project">
+        <div class="project fade-in-up">
             <img src="images/slms.jpg" alt="Science Laboratory Management System" class="project-image">
             <h3>Science Laboratory Management System</h3>
             <p>A comprehensive Java-based system for managing science laboratory resources, equipment tracking, experiment scheduling, and inventory management.</p>
@@ -207,7 +231,7 @@
             </div>
         </div>
 
-        <div class="project">
+        <div class="project fade-in-up">
             <img src="images/QuizKa.png" alt="Quiz-KA" class="project-image">
             <h3>Quiz-KA</h3>
             <p>An interactive quiz application for educational purposes. Features multiple choice questions, score tracking, and a clean user interface.</p>
@@ -217,7 +241,7 @@
             </div>
         </div>
 
-        <div class="project">
+        <div class="project fade-in-up">
             <img src="images/LuckyTravel.png" alt="Lucky Travel" class="project-image">
             <h3>Lucky Travel</h3>
             <p>A modern travel agency website showcasing Asian destinations. Features responsive design and interactive elements.</p>
@@ -227,7 +251,7 @@
             </div>
         </div>
 
-        <div class="project">
+        <div class="project fade-in-up">
             <img src="images/todo.png" alt="Task Manager" class="project-image">
             <h3>Task Manager</h3>
             <p>A clean and efficient to-do list application with task filtering capabilities. Features include task status tracking, date & time management, and intuitive task organization.</p>
@@ -237,7 +261,7 @@
             </div>
         </div>
 
-        <div class="project">
+        <div class="project fade-in-up">
             <img src="images/Hotel.png" alt="Hotel Lucky" class="project-image">
             <h3>Hotel Lucky</h3>
             <p>This application is designed to manage hotel operations, catering to both administrators and receptionists, as well as providing reservation functionality for users.</p>
@@ -246,7 +270,7 @@
             </div>
         </div>
 
-        <div class="project">
+        <div class="project fade-in-up">
             <img src="images/EduSense.png" alt="EduSense" class="project-image">
             <h3>EduSense</h3>
             <p>An AI-powered educational platform designed to support students with disabilities. Features include AI Vision Assistance, Speech-to-Text Conversion, and Adaptive Learning Interface.</p>
@@ -255,7 +279,7 @@
             </div>
         </div>
 
-        <div class="project">
+        <div class="project fade-in-up">
             <img src="images/OneAccord.jpg" alt="OneAccord" class="project-image">
             <h3>OneAccord</h3>
             <p>Experience comfortable and reliable transportation services in Auckland with ONE Accord Tours NZ. Professional taxi and tour services tailored to your needs.</p>
@@ -264,7 +288,7 @@
             </div>
         </div>
 
-        <div class="project">
+        <div class="project fade-in-up">
             <img src="images/ptc.png" alt="Property Tax Calculator" class="project-image">
             <h3>Property Tax Calculator</h3>
             <p>A Java application that calculates property taxes based on user input. It features a user-friendly interface and accurate calculations.</p>
@@ -273,7 +297,7 @@
             </div>
         </div>
 
-        <div class="project">
+        <div class="project fade-in-up">
             <img src="images/XboxInsp.png" alt="Xbox Inspired Dashboard" class="project-image">
             <h3>Xbox Inspired Dashboard</h3>
             <p>A web application inspired by the Xbox dashboard, featuring a modern design and interactive elements for user engagement.</p>
@@ -283,5 +307,19 @@
             </div>
         </div>
     </div>
+
+    <script>
+    // Animation on scroll
+    function revealOnScroll() {
+        document.querySelectorAll('.fade-in-up').forEach(function(el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 40) {
+                el.classList.add('visible');
+            }
+        });
+    }
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('DOMContentLoaded', revealOnScroll);
+    </script>
 </body>
 </html> 

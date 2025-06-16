@@ -134,6 +134,27 @@
             font-size: 0.9rem;
         }
 
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            aspect-ratio: 1/1;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            background: #222;
+        }
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s cubic-bezier(.39,.575,.565,1), transform 0.7s cubic-bezier(.39,.575,.565,1);
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: none;
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 1rem;
@@ -157,12 +178,12 @@
         <a href="contact.html">Contact</a>
     </nav>
 
-    <div class="about-section">
+    <div class="about-section fade-in-up">
         <h1>About Me</h1>
         <p>I am a passionate web developer and creative technologist with over 3 years of experience in building modern web applications. Currently pursuing my Bachelor's degree in Information Technology, I combine my academic knowledge with practical experience to create innovative solutions.</p>
     </div>
 
-    <div class="about-section">
+    <div class="about-section fade-in-up">
         <h2>Education</h2>
         <div class="education-item">
             <div class="education-date">2023 - Present</div>
@@ -171,7 +192,7 @@
         </div>
     </div>
 
-    <div class="about-section">
+    <div class="about-section fade-in-up">
         <h2>Technical Skills</h2>
         <div class="skills-grid">
             <div class="skill-item">HTML/CSS</div>
@@ -185,7 +206,7 @@
         </div>
     </div>
 
-    <div class="about-section">
+    <div class="about-section fade-in-up">
         <h2>Interests</h2>
         <div class="interests">
             <div class="interest-item">Web Development</div>
@@ -195,5 +216,19 @@
             <div class="interest-item">Innovation</div>
         </div>
     </div>
+
+    <script>
+    // Animation on scroll
+    function revealOnScroll() {
+        document.querySelectorAll('.fade-in-up').forEach(function(el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 40) {
+                el.classList.add('visible');
+            }
+        });
+    }
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('DOMContentLoaded', revealOnScroll);
+    </script>
 </body>
 </html> 
