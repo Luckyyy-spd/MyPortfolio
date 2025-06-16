@@ -3,32 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
+    <title>Lance's Portfolio</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
+        :root {
+            --primary-color: #007AFF;
+            --text-color: #333;
+            --bg-color: #fff;
+            --secondary-bg: #f8f9fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--bg-color);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 2rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), #00b4d8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            padding: 6rem 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text-color);
+        }
+
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-card i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            padding: 2rem;
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
         .portfolio-item {
             background: white;
-            border-radius: 12px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
         }
 
         .portfolio-item:hover {
             transform: translateY(-10px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
         }
 
         .portfolio-image {
@@ -36,48 +171,25 @@
             height: 200px;
             background-size: cover;
             background-position: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .portfolio-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.7));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .portfolio-item:hover .portfolio-image::before {
-            opacity: 1;
         }
 
         .portfolio-content {
             padding: 1.5rem;
         }
 
-        .portfolio-title {
-            font-size: 1.5rem;
-            color: #1c1e21;
+        .portfolio-category {
+            color: var(--primary-color);
+            font-size: 0.9rem;
             margin-bottom: 0.5rem;
         }
 
-        .portfolio-category {
-            color: #1877f2;
-            font-size: 0.9rem;
+        .portfolio-title {
+            font-size: 1.5rem;
             margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
         .portfolio-description {
-            color: #65676b;
-            line-height: 1.6;
+            color: #666;
             margin-bottom: 1.5rem;
         }
 
@@ -88,434 +200,299 @@
 
         .portfolio-link {
             padding: 0.5rem 1rem;
-            border-radius: 20px;
+            border-radius: 25px;
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
         .live-link {
-            background: #1877f2;
+            background: var(--primary-color);
             color: white;
         }
 
         .github-link {
-            background: rgba(24, 119, 242, 0.1);
-            color: #1877f2;
+            background: rgba(0, 122, 255, 0.1);
+            color: var(--primary-color);
         }
 
-        .portfolio-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .section-title {
-            text-align: center;
-            margin: 4rem 0 2rem;
-            color: #1c1e21;
-            font-size: 2.5rem;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(90deg, #1877f2, #00b4d8);
-            border-radius: 3px;
-        }
-
-        .filter-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 0.5rem 1.5rem;
-            border: none;
-            border-radius: 20px;
-            background: rgba(24, 119, 242, 0.1);
-            color: #1877f2;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn.active {
-            background: #1877f2;
-            color: white;
-        }
-
-        .filter-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .portfolio-item {
-            animation: fadeIn 0.5s ease forwards;
-        }
-
-        .footer-links {
-            text-align: center;
-            margin: 2rem 0;
-        }
-
-        .footer-links a {
-            margin: 0 1rem;
-            text-decoration: none;
-            color: #1877f2;
-            font-weight: bold;
-        }
-
-        .footer-links a:hover {
-            text-decoration: underline;
-        }
-
-        /* About Section Styles */
-        .about-section {
-            padding: 4rem 2rem;
-            background: #f8f9fa;
-        }
-
-        .about-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-image {
-            flex: 0 0 300px;
-        }
-
-        .about-image img {
-            width: 100%;
-            height: auto;
-            border-radius: 50%;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .about-text {
-            flex: 1;
-        }
-
-        .about-text h2 {
-            font-size: 2.5rem;
-            color: #1c1e21;
-            margin-bottom: 1rem;
-        }
-
-        .about-text p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #65676b;
-            margin-bottom: 2rem;
-        }
-
-        .skills h3 {
-            font-size: 1.5rem;
-            color: #1c1e21;
-            margin-bottom: 1rem;
-        }
-
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .skill-tags span {
-            padding: 0.5rem 1rem;
-            background: rgba(24, 119, 242, 0.1);
-            color: #1877f2;
-            border-radius: 20px;
-            font-weight: 500;
-        }
-
-        /* Smooth Scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Responsive Design */
         @media (max-width: 768px) {
             .about-content {
-                flex-direction: column;
+                grid-template-columns: 1fr;
                 text-align: center;
             }
 
-            .about-image {
-                flex: 0 0 200px;
+            .hero h1 {
+                font-size: 2.5rem;
             }
 
-            .skill-tags {
-                justify-content: center;
+            .section {
+                padding: 4rem 1rem;
             }
         }
     </style>
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo-container">
-            <a href="index.html" class="logo">My Portfolio</a>
-        </div>
+        <a href="#" class="logo">Lance</a>
         <div class="nav-links">
-            <a href="#about"><i class="fas fa-user"></i> <span>About</span></a>
-            <a href="#portfolio" class="active"><i class="fas fa-briefcase"></i> <span>Portfolio</span></a>
+            <a href="#about">About</a>
+            <a href="#portfolio">Portfolio</a>
         </div>
     </nav>
 
-    <div class="content">
-        <section id="about" class="about-section">
-            <h1 class="section-title">About Me</h1>
-            <div class="about-content">
-                <div class="about-image">
-                    <img src="images/profile_picture.png" alt="Profile Picture">
-                </div>
-                <div class="about-text">
-                    <h2>Hi, I'm Lance</h2>
-                    <p>I'm a passionate software developer with expertise in web development, Java programming, and cloud technologies. I love creating innovative solutions that make a difference.</p>
-                    <div class="skills">
-                        <h3>Skills</h3>
-                        <div class="skill-tags">
-                            <span>HTML/CSS</span>
-                            <span>JavaScript</span>
-                            <span>Java</span>
-                            <span>Azure</span>
-                            <span>React</span>
-                            <span>Node.js</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="portfolio">
-            <h1 class="section-title">My Portfolio</h1>
-            
-            <div class="filter-buttons">
-                <button class="filter-btn active" data-filter="all">All Projects</button>
-                <button class="filter-btn" data-filter="web">Web Development</button>
-                <button class="filter-btn" data-filter="azure">Azure Cloud</button>
-                <button class="filter-btn" data-filter="java">Java</button>
-            </div>
-
-            <div class="portfolio-grid">
-                <div class="portfolio-item" data-category="web">
-                    <div class="portfolio-image" style="background-image: url('images/QuizKa.png')"></div>
-                    <div class="portfolio-content">
-                        <div class="portfolio-category">
-                            <i class="fas fa-globe"></i> Web Development
-                        </div>
-                        <h3 class="portfolio-title">Quiz-KA</h3>
-                        <p class="portfolio-description">An interactive quiz application for educational purposes. Features multiple choice questions, score tracking, and a clean user interface.</p>
-                        <div class="portfolio-links">
-                            <a href="https://luckyyy-spd.github.io/QuizKa/" class="portfolio-link live-link" target="_blank">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="https://github.com/Luckyyy-spd/QuizKa" class="portfolio-link github-link" target="_blank">
-                                <i class="fab fa-github"></i> Source Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="portfolio-item" data-category="web">
-                    <div class="portfolio-image" style="background-image: url('images/LuckyTravel.png')"></div>
-                    <div class="portfolio-content">
-                        <div class="portfolio-category">
-                            <i class="fas fa-globe"></i> Web Development
-                        </div>
-                        <h3 class="portfolio-title">Lucky Travel</h3>
-                        <p class="portfolio-description">A modern travel agency website showcasing Asian destinations. Features responsive design and interactive elements.</p>
-                        <div class="portfolio-links">
-                            <a href="https://luckyyy-spd.github.io/Travel-Agency-Website/" class="portfolio-link live-link" target="_blank">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="https://github.com/Luckyyy-spd/Travel-Agency-Website" class="portfolio-link github-link" target="_blank">
-                                <i class="fab fa-github"></i> Source Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="portfolio-item" data-category="web">
-                    <div class="portfolio-image" style="background-image: url('images/todo.png')"></div>
-                    <div class="portfolio-content">
-                        <div class="portfolio-category">
-                            <i class="fas fa-globe"></i> Web Development
-                        </div>
-                        <h3 class="portfolio-title">Task Manager</h3>
-                        <p class="portfolio-description">A clean and efficient to-do list application with task filtering capabilities. Features include task status tracking, date & time management, and intuitive task organization.</p>
-                        <div class="portfolio-links">
-                            <a href="https://luckyyy-spd.github.io/To-do-List/" class="portfolio-link live-link" target="_blank">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="https://github.com/Luckyyy-spd/To-do-List" class="portfolio-link github-link" target="_blank">
-                                <i class="fab fa-github"></i> Source Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="portfolio-item" data-category="web">
-                    <div class="portfolio-image" style="background-image: url('images/Hotel.png')"></div>
-                    <div class="portfolio-content">
-                        <div class="portfolio-category">
-                            <i class="fas fa-globe"></i> Web Development
-                        </div>
-                        <h3 class="portfolio-title">Hotel Lucky</h3>
-                        <p class="portfolio-description">This application is designed to manage hotel operations, catering to both administrators and receptionists, as well as providing reservation functionality for users.</p>
-                        <div class="portfolio-links">
-                            <!-- <a href="https://hotellucky.azurewebsites.net/" class="portfolio-link live-link" target="_blank">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a> -->
-                            <a href="https://github.com/Luckyyy-spd/Hotel-Lucky" class="portfolio-link github-link" target="_blank">
-                                <i class="fab fa-github"></i> Source Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                
-
-                <div class="portfolio-item" data-category="azure">
-                    <div class="portfolio-image" style="background-image: url('images/EduSense.png')"></div>
-                    <div class="portfolio-content">
-                        <div class="portfolio-category">
-                            <i class="fab fa-microsoft"></i> Azure Cloud
-                        </div>
-                        <h3 class="portfolio-title">EduSense</h3>
-                        <p class="portfolio-description">An AI-powered educational platform designed to support students with disabilities. Features include AI Vision Assistance, Speech-to-Text Conversion, and Adaptive Learning Interface.</p>
-                        <div class="portfolio-links">
-                            <a href="http://edusenseapp-web.azurewebsites.net/" class="portfolio-link live-link" target="_blank">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="portfolio-item" data-category="web">
-                    <div class="portfolio-image" style="background-image: url('images/OneAccord.jpg')"></div>
-                    <div class="portfolio-content">
-                        <div class="portfolio-category">
-                            <i class="fab fa-microsoft"></i> Web Development
-                        </div>
-                        <h3 class="portfolio-title">OneAccord</h3>
-                        <p class="portfolio-description">Experience comfortable and reliable transportation services in Auckland with ONE Accord Tours NZ. Professional taxi and tour services tailored to your needs.</p>
-                        <div class="portfolio-links">
-                            <a href="https://oneaccordnz.com/" class="portfolio-link live-link" target="_blank">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="portfolio-item" data-category="java">
-                    <div class="portfolio-image" style="background-image: url('images/ptc.png')"></div>
-                    <div class="portfolio-content">
-                        <div class="portfolio-category">
-                            <i class="fas fa-code"></i> Java
-                        </div>
-                        <h3 class="portfolio-title">Property Tax Calculator</h3>
-                        <p class="portfolio-description">A Java application that calculates property taxes based on user input. It features a user-friendly interface and accurate calculations.</p>
-                        <div class="portfolio-links">
-                            <a href="https://github.com/Luckyyy-spd/Property-Tax-Calculator" class="portfolio-link github-link" target="_blank">
-                                <i class="fab fa-github"></i> Source Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="portfolio-item" data-category="web">
-                    <div class="portfolio-image" style="background-image: url('images/XboxInsp.png')"></div>
-                    <div class="portfolio-content">
-                        <div class="portfolio-category">
-                            <i class="fas fa-desktop"></i> Web Development
-                        </div>
-                        <h3 class="portfolio-title">Xbox Inspired Dashboard</h3>
-                        <p class="portfolio-description">A web application inspired by the Xbox dashboard, featuring a modern design and interactive elements for user engagement.</p>
-                        <div class="portfolio-links">
-                            <a href="https://luckyyy-spd.github.io/Xbox-Inspired-Dashboard/" class="portfolio-link live-link" target="_blank">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="https://github.com/Luckyyy-spd/Xbox-Inspired-Dashboard" class="portfolio-link github-link" target="_blank">
-                                <i class="fab fa-github"></i> Source Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="portfolio-item" data-category="web">
-                    <div class="portfolio-image" style="background-image: url('images/bochogs.jpg')"></div>
-                    <div class="portfolio-content">
-                        <div class="portfolio-category">
-                            <i class="fas fa-globe"></i> Web Development
-                        </div>
-                        <h3 class="portfolio-title">Bochogs Food Ordering System</h3>
-                        <p class="portfolio-description">A modern food ordering web application for Bochogs restaurant. Features include online menu browsing, cart management, order tracking, and secure payment processing.</p>
-                        <div class="portfolio-links">
-                            <a href="#" class="portfolio-link live-link" target="_blank">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="#" class="portfolio-link github-link" target="_blank">
-                                <i class="fab fa-github"></i> Source Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="portfolio-item" data-category="java">
-                    <div class="portfolio-image" style="background-image: url('images/slms.jpg')"></div>
-                    <div class="portfolio-content">
-                        <div class="portfolio-category">
-                            <i class="fab fa-java"></i> Java Application
-                        </div>
-                        <h3 class="portfolio-title">Science Laboratory Management System</h3>
-                        <p class="portfolio-description">A comprehensive Java-based system for managing science laboratory resources, equipment tracking, experiment scheduling, and inventory management.</p>
-                        <div class="portfolio-links">
-                            <a href="#" class="portfolio-link live-link" target="_blank">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="#" class="portfolio-link github-link" target="_blank">
-                                <i class="fab fa-github"></i> Source Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- <footer>
-        <div class="footer-links">
-            <a href="https://github.com/Luckyyy-spd/Property-Tax-Calculator" target="_blank">Property Tax Calculator</a>
-            <a href="https://luckyyy-spd.github.io/Xbox-Inspired-Dashboard/" target="_blank">Xbox Inspired Dashboard</a>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Hi, I'm Lance</h1>
+            <p>Full Stack Developer passionate about creating innovative solutions</p>
         </div>
-    </footer> -->
+    </section>
+
+    <section id="about" class="section">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <div class="about-image">
+                <img src="images/profile_picture.png" alt="Profile Picture">
+            </div>
+            <div class="about-text">
+                <p>I'm a passionate software developer with expertise in web development, Java programming, and cloud technologies. I love creating innovative solutions that make a difference.</p>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <i class="fab fa-html5"></i>
+                        <h3>HTML/CSS</h3>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fab fa-js"></i>
+                        <h3>JavaScript</h3>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fab fa-java"></i>
+                        <h3>Java</h3>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fab fa-microsoft"></i>
+                        <h3>Azure</h3>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fab fa-react"></i>
+                        <h3>React</h3>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fab fa-node-js"></i>
+                        <h3>Node.js</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="section">
+        <h2 class="section-title">My Projects</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item" data-category="web">
+                <div class="portfolio-image" style="background-image: url('images/QuizKa.png')"></div>
+                <div class="portfolio-content">
+                    <div class="portfolio-category">
+                        <i class="fas fa-globe"></i> Web Development
+                    </div>
+                    <h3 class="portfolio-title">Quiz-KA</h3>
+                    <p class="portfolio-description">An interactive quiz application for educational purposes. Features multiple choice questions, score tracking, and a clean user interface.</p>
+                    <div class="portfolio-links">
+                        <a href="https://luckyyy-spd.github.io/QuizKa/" class="portfolio-link live-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                        <a href="https://github.com/Luckyyy-spd/QuizKa" class="portfolio-link github-link" target="_blank">
+                            <i class="fab fa-github"></i> Source Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item" data-category="web">
+                <div class="portfolio-image" style="background-image: url('images/LuckyTravel.png')"></div>
+                <div class="portfolio-content">
+                    <div class="portfolio-category">
+                        <i class="fas fa-globe"></i> Web Development
+                    </div>
+                    <h3 class="portfolio-title">Lucky Travel</h3>
+                    <p class="portfolio-description">A modern travel agency website showcasing Asian destinations. Features responsive design and interactive elements.</p>
+                    <div class="portfolio-links">
+                        <a href="https://luckyyy-spd.github.io/Travel-Agency-Website/" class="portfolio-link live-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                        <a href="https://github.com/Luckyyy-spd/Travel-Agency-Website" class="portfolio-link github-link" target="_blank">
+                            <i class="fab fa-github"></i> Source Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item" data-category="web">
+                <div class="portfolio-image" style="background-image: url('images/todo.png')"></div>
+                <div class="portfolio-content">
+                    <div class="portfolio-category">
+                        <i class="fas fa-globe"></i> Web Development
+                    </div>
+                    <h3 class="portfolio-title">Task Manager</h3>
+                    <p class="portfolio-description">A clean and efficient to-do list application with task filtering capabilities. Features include task status tracking, date & time management, and intuitive task organization.</p>
+                    <div class="portfolio-links">
+                        <a href="https://luckyyy-spd.github.io/To-do-List/" class="portfolio-link live-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                        <a href="https://github.com/Luckyyy-spd/To-do-List" class="portfolio-link github-link" target="_blank">
+                            <i class="fab fa-github"></i> Source Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item" data-category="web">
+                <div class="portfolio-image" style="background-image: url('images/Hotel.png')"></div>
+                <div class="portfolio-content">
+                    <div class="portfolio-category">
+                        <i class="fas fa-globe"></i> Web Development
+                    </div>
+                    <h3 class="portfolio-title">Hotel Lucky</h3>
+                    <p class="portfolio-description">This application is designed to manage hotel operations, catering to both administrators and receptionists, as well as providing reservation functionality for users.</p>
+                    <div class="portfolio-links">
+                        <!-- <a href="https://hotellucky.azurewebsites.net/" class="portfolio-link live-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a> -->
+                        <a href="https://github.com/Luckyyy-spd/Hotel-Lucky" class="portfolio-link github-link" target="_blank">
+                            <i class="fab fa-github"></i> Source Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item" data-category="azure">
+                <div class="portfolio-image" style="background-image: url('images/EduSense.png')"></div>
+                <div class="portfolio-content">
+                    <div class="portfolio-category">
+                        <i class="fab fa-microsoft"></i> Azure Cloud
+                    </div>
+                    <h3 class="portfolio-title">EduSense</h3>
+                    <p class="portfolio-description">An AI-powered educational platform designed to support students with disabilities. Features include AI Vision Assistance, Speech-to-Text Conversion, and Adaptive Learning Interface.</p>
+                    <div class="portfolio-links">
+                        <a href="http://edusenseapp-web.azurewebsites.net/" class="portfolio-link live-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item" data-category="web">
+                <div class="portfolio-image" style="background-image: url('images/OneAccord.jpg')"></div>
+                <div class="portfolio-content">
+                    <div class="portfolio-category">
+                        <i class="fab fa-microsoft"></i> Web Development
+                    </div>
+                    <h3 class="portfolio-title">OneAccord</h3>
+                    <p class="portfolio-description">Experience comfortable and reliable transportation services in Auckland with ONE Accord Tours NZ. Professional taxi and tour services tailored to your needs.</p>
+                    <div class="portfolio-links">
+                        <a href="https://oneaccordnz.com/" class="portfolio-link live-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item" data-category="java">
+                <div class="portfolio-image" style="background-image: url('images/ptc.png')"></div>
+                <div class="portfolio-content">
+                    <div class="portfolio-category">
+                        <i class="fas fa-code"></i> Java
+                    </div>
+                    <h3 class="portfolio-title">Property Tax Calculator</h3>
+                    <p class="portfolio-description">A Java application that calculates property taxes based on user input. It features a user-friendly interface and accurate calculations.</p>
+                    <div class="portfolio-links">
+                        <a href="https://github.com/Luckyyy-spd/Property-Tax-Calculator" class="portfolio-link github-link" target="_blank">
+                            <i class="fab fa-github"></i> Source Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item" data-category="web">
+                <div class="portfolio-image" style="background-image: url('images/XboxInsp.png')"></div>
+                <div class="portfolio-content">
+                    <div class="portfolio-category">
+                        <i class="fas fa-desktop"></i> Web Development
+                    </div>
+                    <h3 class="portfolio-title">Xbox Inspired Dashboard</h3>
+                    <p class="portfolio-description">A web application inspired by the Xbox dashboard, featuring a modern design and interactive elements for user engagement.</p>
+                    <div class="portfolio-links">
+                        <a href="https://luckyyy-spd.github.io/Xbox-Inspired-Dashboard/" class="portfolio-link live-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                        <a href="https://github.com/Luckyyy-spd/Xbox-Inspired-Dashboard" class="portfolio-link github-link" target="_blank">
+                            <i class="fab fa-github"></i> Source Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item" data-category="web">
+                <div class="portfolio-image" style="background-image: url('images/bochogs.jpg')"></div>
+                <div class="portfolio-content">
+                    <div class="portfolio-category">
+                        <i class="fas fa-globe"></i> Web Development
+                    </div>
+                    <h3 class="portfolio-title">Bochogs Food Ordering System</h3>
+                    <p class="portfolio-description">A modern food ordering web application for Bochogs restaurant. Features include online menu browsing, cart management, order tracking, and secure payment processing.</p>
+                    <div class="portfolio-links">
+                        <a href="#" class="portfolio-link live-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                        <a href="#" class="portfolio-link github-link" target="_blank">
+                            <i class="fab fa-github"></i> Source Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-item" data-category="java">
+                <div class="portfolio-image" style="background-image: url('images/slms.jpg')"></div>
+                <div class="portfolio-content">
+                    <div class="portfolio-category">
+                        <i class="fab fa-java"></i> Java Application
+                    </div>
+                    <h3 class="portfolio-title">Science Laboratory Management System</h3>
+                    <p class="portfolio-description">A comprehensive Java-based system for managing science laboratory resources, equipment tracking, experiment scheduling, and inventory management.</p>
+                    <div class="portfolio-links">
+                        <a href="#" class="portfolio-link live-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                        <a href="#" class="portfolio-link github-link" target="_blank">
+                            <i class="fab fa-github"></i> Source Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Navbar background change on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+            } else {
+                navbar.style.background = 'transparent';
+            }
+        });
+
         // Portfolio filtering
         const filterButtons = document.querySelectorAll('.filter-btn');
         const portfolioItems = document.querySelectorAll('.portfolio-item');
